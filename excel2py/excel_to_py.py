@@ -143,6 +143,7 @@ class ConstantSection(FileSection):
             else:
                 value = f'"{cells.Value2}"'
         elif is_date(cells, self.valid_date_formats):
+            # TODO: I think I could work this out by checking format strings instead - and get rid of valid_date_formats
             value = f'ex_datetime({cells.Value2})'
         else:
             value = cells.Value2
@@ -219,7 +220,7 @@ class ExcelToPy:
         self.parser = expression_parser()
 
         # Prefix aliases with 'self.'
-        self.inouts.update(self.formulae_on_sheets(config.input_sheets, config.inputs))
+        self.inputs.update(self.formulae_on_sheets(config.input_sheets, config.inputs))
         self.outputs.update(self.formulae_on_sheets(config.output_sheets, config.outputs))
         aliases = {}
         aliases.update(config.inputs)
@@ -233,7 +234,17 @@ class ExcelToPy:
         return self.parser.parse(formula, semantics=self.pythonify)
 
     def formulae_on_sheets(self, sheets, aliases):
+        """
+        Prefix aliases with 'self.'
+        BUT: Why was I doing this? Was this to get sheets as classes?
 
+        :param sheets:
+        :param aliases:
+        :return:
+        """
+        # TODO: Implement
+        print("XXX")
+        return {}
 
     def add_names_as_aliases(self, book):
         """

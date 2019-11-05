@@ -22,7 +22,7 @@ def config(description):
     """
     Take values from the command line and/or config
 
-    :param description:
+    :param description for command line help:
     :return: Provides an object with these attributes:
         - spreadsheet, name of the file open in Excel
         - config: TODO: parsed contents of the config file

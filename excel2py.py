@@ -6,7 +6,7 @@ the same name as the Excel file. This tells it which sheets are
 inputs, outputs and calculations.
 
 By Michael Grazebrook of Joined Up Finance Ltd
-for Willis Towers Watson, 21 Aug 2018
+21 Aug 2018
 """
 
 from excel2py.config import config
