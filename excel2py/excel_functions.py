@@ -12,6 +12,16 @@ from excel2py.ex_datetime import ex_datetime, to_excel_number
 
 
 def _to_number(arg):
+    """
+    cast arg to a number of equivalent meaning.
+
+    datetime is a float of days since the Excel era
+
+    timedelta is a float expressed in days
+
+    anything else (e.g. a number stored as text) raises TypeError
+    """
+    
     if isinstance(arg, numbers.Number):
         return arg
 
