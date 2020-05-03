@@ -6,6 +6,7 @@ By Michael Grazebrook of Joined Up Finance Ltd
 import unittest
 import datetime
 import excel2py.excel_functions as ef
+# from excel2py.excel_functions import to_excel_number as ef
 from excel2py.ex_datetime import ex_datetime
 
 # skipping:
