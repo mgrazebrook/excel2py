@@ -8,6 +8,7 @@ import datetime
 import numbers
 from collections import Iterable
 from functools import reduce
+from statistics import median
 from excel2py.ex_datetime import ex_datetime, to_excel_number
 
 
@@ -201,6 +202,55 @@ def VLOOKUP(value, table, column, range_lookup=True):
     if range_lookup:
         return table[-1][column-1]
     return None
+
+
+# count function
+def COUNT(*args):
+    """
+    Counts all values that are numeric in a column, e.g. COUNT(A1:A2)
+    """
+    return tuple(filter(lambda x: type(x) is int, *args))
+
+
+# median function
+def MEDIAN(*args): # *args
+    """
+    Returns the median of a given list of values, e.g. =MEDIAN(1,2,3,4,5) returns 3
+    """
+    try:
+        return median(*args)
+    except TypeError:
+        raise TypeError("median works on only strings values")
+
+
+# trim function
+def TRIM(val):
+    """
+    Trim removes all white spaces from a given cell, e.g. =TRIM(A1)
+    """
+    return " ".join(val.split())
+
+
+# concatenate function
+def CONCATENATE(value1,value2,option):
+    """
+    Concatenate joins two cells into a combined cell, e.g. =CONCATENATE(A2,"",B2)
+    :param value1: represents the first cell
+    :param value2: represents the second cell
+    :param option: represents any white space(s) to be included between the two values 
+    """
+    if option is ' ':
+        return value1 +option+ value2
+    return value1 + value2
+
+
+# counta function
+def COUNTA(*args):
+    """
+    Counta counts all cells regardless of type but only skips empty cell, e.g. =COUNTA(value1, [value2], …)
+    """
+    return [len([a for a in arg if a != '']) for arg in args]
+
 
 #
 # dt = ex_datetime(2018, 7, 5)

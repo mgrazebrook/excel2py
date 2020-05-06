@@ -169,5 +169,68 @@ class TestInt(unittest.TestCase):
                 self.assertEqual(ef.INT(val), expect)
 
 
+# Count test
+class TestCount(unittest.TestCase):
+    """
+    Test that the count functions can counts all the list of integers
+    """
+    def test_ok(self):
+        data = (1, 2, 3, 12, 15, 45, 'one', 25, 'two', ' ')
+        result = ef.COUNT(data)
+        self.assertTrue(result)
+
+
+# Median test
+class TestMedian(unittest.TestCase):
+    """
+    Test to get the median of a list of values
+    Will raise an error if strings are passed
+    """
+    def test_ok(self):
+        data = [1, 2, 3, 12, 15, 45]
+        result = ef.MEDIAN(data)
+        self.assertTrue(result)
+
+    def test_error(self):
+        data = [1, 2, 3, 12, 15, 45, 'one', 25, 'two', ' ']
+        with self.assertRaises(TypeError, msg="Only "): ef.MEDIAN(data)
+
+
+# Trim test
+class TestTrim(unittest.TestCase):
+    """
+    Test to remove all whitespace from a string
+    """
+    def test_ok(self):
+        text = ' PYTHON       UNITTEST  TRIM  '
+        result = ef.TRIM(text)
+        self.assertTrue(result)
+
+
+# Concatenate test
+class TestConcatenate(unittest.TestCase):
+    """
+    Test to join to cells together to form one
+    """
+    def test_ok(self):
+        cell1 = 'one'
+        cell2 = 'two'
+        option = ''
+        result = ef.CONCATENATE(cell1, cell2, option)
+        self.assertTrue(result)
+
+
+# Counta test
+class TestCounta(unittest.TestCase):
+    """
+    Test to counts all cells regardless of type but only skips empty cell
+    """
+    def test_ok(self):
+        data = ['one', 1, 'two', '', 3, 'three', 25, '']
+        result = ef.COUNTA(data)
+        self.assertTrue(result)
+
+
+
 if __name__ == "__main__":
     unittest.main()
