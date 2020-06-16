@@ -95,6 +95,11 @@ class TestSimpleFunctions(unittest.TestCase):
         self.assertEqual(ef.MIN(dt), dt)
         self.assertEqual(ef.MIN([dt+4, dt, dt+2]), dt)
 
+    # def test_min_mixed_range(self):
+    #     result = ef.MIN(((8,4), 7, 3), (9, 2.5), 2.0)
+    #     expect = 2.0
+    #     self.assertEqual(expect, result)
+
     def test_max(self):
         self.assertEqual(ef.MAX(1, 7, -4, 11), 11)
 
@@ -189,6 +194,15 @@ class TestCount(unittest.TestCase):
         expect = 3
         result = ef.COUNT(data)
         self.assertEqual(expect, result)
+
+    # def test_mixed_range(self):
+    #     expect = 5
+    #     range = ((2, 4.8), (1, 12))
+    #     result = ef.count(range, 28)
+    #     self.assertEqual(expect, result)
+
+    def test_count_error(self):
+        pass  # TODO: #DIV/0 etc
 
 
 # Median test
