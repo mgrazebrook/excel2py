@@ -172,12 +172,23 @@ class TestInt(unittest.TestCase):
 # Count test
 class TestCount(unittest.TestCase):
     """
-    Test that the count functions can counts all the list of integers
+    The COUNT function counts the number of cells that contain numbers
     """
-    def test_ok(self):
-        data = (1, 2, 3, 12, 15, 45, 'one', 25, 'two', ' ')
+    def test_one(self):
+        expect = 1
+        result = ef.COUNT(7)
+        self.assertEqual(expect, result)
+
+    def test_different_types(self):
+        """
+        This is from the Excel documentation excluding the #DIV/0:
+        Excel  Formulas and functions  Functions  COUNT function
+        https://support.microsoft.com/en-gb/office/count-function-a59cd7fc-b623-4d93-87a4-d23bf411294c?ui=en-us&rs=en-gb&ad=gb#:~:text=Use%20the%20COUNT%20function%20to,numbers%2C%20the%20result%20is%205.
+        """
+        data = (ex_datetime(2008, 8, 8), 19, 22.24, True)
+        expect = 3
         result = ef.COUNT(data)
-        self.assertTrue(result)
+        self.assertEqual(expect, result)
 
 
 # Median test
