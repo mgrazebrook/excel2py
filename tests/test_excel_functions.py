@@ -262,6 +262,86 @@ class TestCounta(unittest.TestCase):
         self.assertTrue(result)
 
 
+# MID test
+class TestMid(unittest.TestCase):
+    """
+    Test to strip out some part of a text based on the start_num and num_chars
+    """
+    def test_ok(self):
+        result = ef.MID('apple', 2, 3)
+        self.assertTrue(result)
+
+    # @unittest.skip("demonstrating skipping")
+    def test_value_error(self):
+        with self.assertRaises(ValueError):
+            ef.MID('apple', 0, -1)
+
+
+# REPLACE test
+class TestReplace(unittest.TestCase):
+    """
+    Replace, replaces text by position.
+    For example, =REPLACE("apple##",2,3,"*") returns "p*l"
+    
+    :param text: The text to extract from.
+    :param start_num: The location of the first character to extract.
+    :param num_chars: The number of characters to extract.
+    :param option: ie- integer(s), string(s), char(s) or symbol(s) to be inserted into the position
+    """
+    def test_ok(self):
+        """
+        Test that the text was replaced
+        """
+        self.assertTrue(ef.REPLACE('apple##', 6, 2, '$2'))
+
+    def test_not_int(self):
+        """
+        Test that start_num and num_chars are type int
+        """
+        with self.assertRaises(TypeError):
+            ef.REPLACE('apple', '0', '1', '')
+
+
+# SEARCH test
+class  TestSearch(unittest.TestCase):
+    """
+    Test to get the index position of a matching text
+    """
+    def test_ok(self):
+        self.assertTrue(ef.SEARCH("python", "we love python"))
+
+    def test_value_error(self):
+        with self.assertRaises(ValueError):
+            ef.SEARCH("code", "we love python")
+
+
+# ABS test
+class TestAbs(unittest.TestCase):
+    def test_true(self):
+        """
+        Test that we get an absolute number
+        """
+        self.assertTrue(ef.ABS(-13.40))
+
+    def test_type_error(self):
+        """
+        Test that string param should throws an error
+        """
+        with self.assertRaises(TypeError) as context:
+            ef.ABS('-13.40')
+        self.assertEqual(
+            'Value must be of type str', str(context.exception))
+
+
+# EXACT test
+class TestExact(unittest.TestCase):
+    def test_equality(self):
+        """
+        Test that both values are True/False
+        """
+        self.assertTrue(ef.EXACT(123,123))
+        self.assertFalse(ef.EXACT("Code",12345))
+
 
 if __name__ == "__main__":
     unittest.main()
