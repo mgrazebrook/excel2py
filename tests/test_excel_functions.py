@@ -181,7 +181,7 @@ class TestCount(unittest.TestCase):
     """
     def test_one(self):
         expect = 1
-        result = ef.COUNT(7)
+        result = ef.COUNT((7, ))
         self.assertEqual(expect, result)
 
     def test_different_types(self):
@@ -195,11 +195,17 @@ class TestCount(unittest.TestCase):
         result = ef.COUNT(data)
         self.assertEqual(expect, result)
 
-    # def test_mixed_range(self):
-    #     expect = 5
-    #     range = ((2, 4.8), (1, 12))
-    #     result = ef.count(range, 28)
-    #     self.assertEqual(expect, result)
+    def test_mixed_range(self):
+        """
+        Counts the number of cells that contain numbers in cells A2 through A7,
+        and the value 2 : e.g =COUNT(A2:A7,2)
+        """
+        expect = 5
+        range = ((2, 4.8), (1, 12))
+        # unpack the nested tuple
+        data = [element for rang in range for element in rang]
+        result = ef.COUNT((*data, 28))
+        self.assertEqual(expect, result)
 
     def test_count_error(self):
         pass  # TODO: #DIV/0 etc
