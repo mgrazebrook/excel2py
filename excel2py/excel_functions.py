@@ -205,11 +205,14 @@ def VLOOKUP(value, table, column, range_lookup=True):
 
 
 # count function
-def COUNT(*args):
+def COUNT(*args, value2=0):
     """
-    Counts all values that are numeric in a column, e.g. COUNT(A1:A2)
+    Counts all values that are numeric in a column not excluding dates, e.g. COUNT(A1:A7)
+    :param args: the arguments to count
+    :param value2: the default argument
+    :return: the length of the counted tuple of elements
     """
-    return tuple(filter(lambda x: type(x) is int, *args))
+    return len(tuple(filter(lambda x: not isinstance(x, (bool, str)), *args)))
 
 
 # median function
@@ -240,8 +243,8 @@ def CONCATENATE(value1,value2,option):
     :param option: represents any white space(s) to be included between the two values 
     """
     if option is ' ':
-        return value1 +option+ value2
-    return value1 + value2
+        return option.join([value1, value2])
+    return ''.join([value1, value2])
 
 
 # counta function
@@ -250,6 +253,107 @@ def COUNTA(*args):
     Counta counts all cells regardless of type but only skips empty cell, e.g. =COUNTA(value1, [value2], …)
     """
     return [len([a for a in arg if a != '']) for arg in args]
+
+
+# mid function
+def MID(text, start_num, num_chars):
+    """
+    The Excel MID function extracts a given number of characters from the middle of a supplied text string.
+    For example, =MID("apple",2,3) returns "ppl". =MID (text, start_num, num_chars)
+    
+    :param text: The text to extract from.
+    :param start_num: The location of the first character to extract.
+    :param num_chars: The number of characters to extract.
+    :return: The extracted text
+    """
+    
+    if start_num and num_chars > 0:
+        return text[start_num-1:(start_num+num_chars)-1]
+    
+    # raise ValueError if param start_num value is not positive integer
+    if start_num == 0:
+        raise ValueError('start_num value must be positive integers eg: 1')
+
+    # raise ValueError if param start_num value is not a positive integer
+    if num_chars == 0:
+        raise ValueError('num_chars value must be positive integers eg: 1')
+
+    # raise ValueError if param start_num or num_chars are negative values
+    if start_num < 0 or num_chars < 0:
+        raise ValueError('start_num and num_chars values cannot be negative values')
+
+
+# replace function
+def REPLACE(text, start_num, num_chars, option):
+    """
+    Replace, replaces text by position.
+    For example, =REPLACE("apple##",2,3,"*") returns "p*l"
+    
+    :param text: The text to extract from.
+    :param start_num: The location of the first character to extract.
+    :param num_chars: The number of characters to extract.
+    :param option: integer(s), string(s),char(s) or symbol(s) to be inserted into the position.
+    :return: The replaced text
+    """
+    # raise TypeError if a non int param start_num value
+    if not isinstance(start_num, int):
+        raise TypeError('start_num should be of type int')
+
+    # raise TypeError if a non int param num_chars value
+    if not isinstance(num_chars, int):
+        raise TypeError('num_chars should be of type int')
+
+    # raise TypeError for negative param values
+    if start_num < 0 or num_chars < 0:
+        raise TypeError('start_num or num_chars should be of positive integers')
+
+    # return the string in place
+    return option.join([text[:start_num-1], text[(start_num+num_chars)-1:]])
+
+
+# search function
+def SEARCH(find_text, within_text):
+    """
+    Search for a word in a string and returns the position.
+    For example, =SEARCH("we love python", "love") -> output(4)
+    
+    :param find_text: The text to find.
+    :param within_text: The string of text.
+    :return: The numeric position of matching text.
+    """
+    try:
+        return within_text.index(find_text) + 1
+    except ValueError:
+        raise ValueError('No such charater available in string')
+
+
+# abs function
+def ABS(val):
+    """
+    Will return the absolute value of the param passed. 
+    For example, =ABS(-13.40) -> output(13.40)
+    
+    :param val: The value to check
+    :return: The absolute value of a number
+    """
+    if not isinstance(val, str):
+        return abs(val)
+    raise TypeError('Value must be of type str')
+
+
+# exact function
+def EXACT(val1, val2):
+    """
+    Check for equality between two text strings in a case-sensitive manner. 
+    For example, =EXACT("Test","test") -> output(FALSE)
+    
+    :param val1: First value
+    :param val2: Second Value
+    :return: True/False
+    """
+    if val1 == val2:
+        return True
+    return False
 
 
 #
