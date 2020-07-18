@@ -242,7 +242,7 @@ def CONCATENATE(value1,value2,option):
     :param value2: represents the second cell
     :param option: represents any white space(s) to be included between the two values 
     """
-    if option is ' ':
+    if option == ' ':
         return option.join([value1, value2])
     return ''.join([value1, value2])
 
@@ -354,6 +354,64 @@ def EXACT(val1, val2):
     if val1 == val2:
         return True
     return False
+
+
+# right function
+def RIGHT(text, num_chars=1):
+    """
+    Extract text from the right of a string eg: apple
+    :param text: The text from which to extract characters on the right.
+    :param num_chars: [optional] The number of characters to extract, starting on the right. Optional, default = 1.
+    :return : The Extracted text
+    """
+    tx = [text[-x:] for x in range(1, (num_chars+1))]
+    return tx[-1]
+
+
+# left function
+def LEFT(text, num_chars=1):
+    """
+    Extract text from the left of a string
+    :param text: The text from which to extract characters on the right.
+    :param num_chars: [optional] The number of characters to extract, starting on the right. Optional, default = 1.
+    """
+    tx = [text[:x] for x in range(1, (num_chars+1))]
+    return tx[-1]
+
+
+# len function
+def LEN(val):
+    """
+    Get the length of the value. Object of type 'int' are converted to type 'str'
+    before their length can be returned
+    :param val: The value to be checked
+    :return : The length
+    """
+    if isinstance(val, (int, float)):
+        return len(str(val))
+    return len(val)
+
+
+# ceiling function
+def CEILING(number, significance=0):
+    """
+    Rounds up a number to the nearest multiple of significance
+    :param number: The value you want to round
+    :param significance: The multiple to which you want to round
+    :return: The rounded up ceiling value or value error if any
+    """
+    if not isinstance(number, str):
+        if significance == 0:
+            return number
+        
+        # get the modulos of the number ans significance
+        remainder = number % significance
+        if remainder == 0:
+            return number
+
+        ceiling_value = number + significance - remainder
+        return round(ceiling_value, 2)
+    raise ValueError("#VALUE! error value")
 
 
 #

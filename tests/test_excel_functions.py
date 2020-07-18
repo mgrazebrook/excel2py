@@ -343,5 +343,101 @@ class TestExact(unittest.TestCase):
         self.assertFalse(ef.EXACT("Code",12345))
 
 
+# RIGHT test
+class TestRight(unittest.TestCase):
+    def test_with_optional_value(self):
+        """
+        Test to extract characters based on the second argument
+        """
+        expect = "cel"
+        result = ef.RIGHT("Excel", 3)
+        self.assertEqual(expect, result)
+
+    def test_with_no_optional_value(self):
+        """
+        Test to extract characters if no second argument is passed
+        """
+        expect = 'l'
+        result = ef.RIGHT("Excel")
+        self.assertEqual(expect, result)
+        
+
+# LEFT test
+class TestLeft(unittest.TestCase):
+    def test_with_optional_value(self):
+        """
+        Test to extract characters based on the second argument
+        """
+        expect = "Ex"
+        result = ef.LEFT('Excel', 2)
+        self.assertEqual(expect, result)
+
+    def test_with_no_optional_value(self):
+        """
+        Test to extract characters if no second argument is passed
+        """
+        expect = 'E'
+        result = ef.LEFT('Excel')
+        self.assertEqual(expect, result)
+
+
+# LEN test
+class TestLen(unittest.TestCase):
+    def test_integer_argument(self):
+        """
+        Test if an integer value is passed as argument
+        """
+        expect = 5
+        result = ef.LEN(12345)
+        self.assertEqual(expect, result)
+
+    def test_float_argument(self):
+        """
+        Test if a float value is passed as argument
+        """
+        expect = 5
+        result = ef.LEN(12.45)
+        self.assertEqual(expect, result)
+
+    def test_no_space_text_argument(self):
+        """
+        Test if a/some string passed as argument
+        """
+        expected_no_space = 8
+        result_no_space = ef.LEN("argument")
+        self.assertEqual(expected_no_space, result_no_space)
+   
+    def test_spaced_text_argument(self):
+        """
+        Test if a string passed as argument is spaced
+        """
+        expected_spaced_arg = 9
+        result_spaced_arg = ef.LEN("argu ment")
+        self.assertEqual(expected_spaced_arg, result_spaced_arg)
+
+
+# CEILING test
+class TestCeiling(unittest.TestCase):
+    def test_ok(self):
+        """
+        Test ok
+        """
+        for num, significance, expect in (
+            (2.5, 1, 3),
+            (-2.5, -2, -4),
+            (-2.5, 2, -2),
+            (1.5, 0.1, 1.5),
+            (0.234, 0.01, 0.24)):
+            self.assertEqual(ef.CEILING(num, significance), expect)
+    
+    def test_value_error(self):
+        """
+        Test value error
+        """
+        with self.assertRaises(ValueError):
+            self.assertTrue(ef.CEILING("ceiling"))
+        
+
+
 if __name__ == "__main__":
     unittest.main()
