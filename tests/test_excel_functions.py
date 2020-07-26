@@ -169,5 +169,48 @@ class TestInt(unittest.TestCase):
                 self.assertEqual(ef.INT(val), expect)
 
 
+# RIGHT test
+class TestRight(unittest.TestCase):
+    def test_with_optional_value(self):
+        """
+        Test to extract characters based on the second argument
+        """
+        expect = "cel"
+        result = ef.RIGHT("Excel", 3)
+        self.assertEqual(expect, result)
+
+    def test_with_no_optional_value(self):
+        """
+        Test to extract characters if no second argument is passed
+        """
+        expect = 'l'
+        result = ef.RIGHT("Excel")
+        self.assertEqual(expect, result)
+   
+    def test_with_zero_as_len(self):
+        """
+        Test to return any empty string if 0 is passed as the len
+        """
+        result = ef.RIGHT("ABC",0)
+        self.assertEqual('',result)
+
+    def test_value_errors(self):
+        """
+        Throw a value error if the len is a string or a negative value
+        """
+        with self.assertRaises(ValueError):
+            ef.RIGHT("ABC","len")
+        with self.assertRaises(ValueError):
+            ef.RIGHT("ABC",-1)
+        with self.assertRaises(ValueError):
+            ef.RIGHT("ABC",True)
+        with self.assertRaises(ValueError):
+            ef.RIGHT("ABC",[5,10,15])
+        with self.assertRaises(ValueError):
+            ef.RIGHT("ABC",(25,30,35))
+
+
+
+
 if __name__ == "__main__":
     unittest.main()

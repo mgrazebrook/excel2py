@@ -8,6 +8,7 @@ import datetime
 import numbers
 from collections import Iterable
 from functools import reduce
+import excel2py.excel_functions as ef
 from excel2py.ex_datetime import ex_datetime, to_excel_number
 
 
@@ -201,6 +202,21 @@ def VLOOKUP(value, table, column, range_lookup=True):
     if range_lookup:
         return table[-1][column-1]
     return None
+
+
+def RIGHT(x, len=1):
+    """
+    RIGHT returns the last character or characters in a text string, 
+    based on the number of characters you specify.
+    :param x: the text
+    :param len: the number of character specified, default is 1
+    :return : the last character or characters 
+    """
+    if isinstance(len, (str, list, tuple, bool)) or len < 0:
+        raise ValueError("ValueError exception thrown") 
+    elif len != 0:
+        return x[-len:]
+    return ''
 
 #
 # dt = ex_datetime(2018, 7, 5)
