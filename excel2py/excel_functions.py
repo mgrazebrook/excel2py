@@ -356,18 +356,6 @@ def EXACT(val1, val2):
     return False
 
 
-# right function
-def RIGHT(text, num_chars=1):
-    """
-    Extract text from the right of a string eg: apple
-    :param text: The text from which to extract characters on the right.
-    :param num_chars: [optional] The number of characters to extract, starting on the right. Optional, default = 1.
-    :return : The Extracted text
-    """
-    tx = [text[-x:] for x in range(1, (num_chars+1))]
-    return tx[-1]
-
-
 # left function
 def LEFT(text, num_chars=1):
     """

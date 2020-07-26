@@ -340,27 +340,7 @@ class TestExact(unittest.TestCase):
         Test that both values are True/False
         """
         self.assertTrue(ef.EXACT(123,123))
-        self.assertFalse(ef.EXACT("Code",12345))
-
-
-# RIGHT test
-class TestRight(unittest.TestCase):
-    def test_with_optional_value(self):
-        """
-        Test to extract characters based on the second argument
-        """
-        expect = "cel"
-        result = ef.RIGHT("Excel", 3)
-        self.assertEqual(expect, result)
-
-    def test_with_no_optional_value(self):
-        """
-        Test to extract characters if no second argument is passed
-        """
-        expect = 'l'
-        result = ef.RIGHT("Excel")
-        self.assertEqual(expect, result)
-        
+        self.assertFalse(ef.EXACT("Code",12345))     
 
 # LEFT test
 class TestLeft(unittest.TestCase):
