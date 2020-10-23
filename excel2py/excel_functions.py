@@ -6,7 +6,7 @@ By Michael Grazebrook of Joined Up Finance Ltd
 import math
 import datetime
 import numbers
-from collections import Iterable
+from collections.abc import Iterable
 from functools import reduce
 from excel2py.ex_datetime import ex_datetime, to_excel_number
 
@@ -21,7 +21,7 @@ def _to_number(arg):
 
     anything else (e.g. a number stored as text) raises TypeError
     """
-    
+
     if isinstance(arg, numbers.Number):
         return arg
 
